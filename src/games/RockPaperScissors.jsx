@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Header = ({title, instructions, prompt}) => {
   return (
@@ -22,9 +22,7 @@ const Scoreboard = ({playerScore, computerScore, winner}) =>{
 };
 
 const Choices = ({choices, onPlayerChoice}) => {
-  function log() {
-    console.log("button clicked");
-  }
+
   return (
     <div className="choices">
       {choices.map((choice, index)=> (
@@ -46,6 +44,14 @@ const Result = ({result}) => {
     <h2>{result.outcome}</h2>
   </div>
   );
+};
+
+const Reset = ({reset}) => {
+    return (
+        <div>
+            <button id="reset" onClick={() => reset()}>Reset Game</button> 
+        </div>   
+    );
 };
 
 
@@ -91,18 +97,28 @@ const RockPaperScissors = () => {
     };
   
     const handlePlayerChoice = (playerChoice) => {
-    const computerChoice = getComputerChoice();
-    const gameResult = determineWinner (playerChoice.name, computerChoice)
-    console.log(`Player chose: ${playerChoice.name}`);
-    console.log(`Computer chose ${computerChoice}`);
-    setResult({
-      player: `Player chose: ${playerChoice.name}`,
-      computer: `Computer chose ${computerChoice}`,
-      outcome: gameResult
+        const computerChoice = getComputerChoice();
+        const gameResult = determineWinner (playerChoice.name, computerChoice)
+        console.log(`Player chose: ${playerChoice.name}`);
+        console.log(`Computer chose ${computerChoice}`);
+        setResult({
+            player: `Player chose: ${playerChoice.name}`,
+            computer: `Computer chose ${computerChoice}`,
+            outcome: gameResult
       
-    });
+        });
 
-  };
+    };
+
+    const resetGame = () => {
+        setPlayerScore(0);
+        setComputerScore(0);
+        setWinner('');
+        setResult('');
+    };
+
+
+
   return (
     <div>
       <Header 
@@ -120,7 +136,9 @@ const RockPaperScissors = () => {
         choices = {choices} onPlayerChoice = {handlePlayerChoice}
       />
       <Result result = {result} />
-      <button id="reset">Reset Game</button>
+      <Reset reset = {resetGame}/>
+
+
     </div>
     );
  };
