@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://alberto077.github.io/simple-react-example",
+  "homepage": "https://alberto077.github.io/FirstReactApps",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

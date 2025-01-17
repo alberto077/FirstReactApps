@@ -10,7 +10,7 @@ const Result = ({ result }) => {
     );
 };
 
-const HigherOrLower = () => {
+const HigherOrLower = ({updateScores , onSetGameResult}) => {
     const generateRandomNumber = () => Math.floor(Math.random() * 100) + 1;
     const [result, setResult] = useState(null);
     const [currentNumber, setCurrentNumber] = useState(generateRandomNumber());
@@ -19,15 +19,21 @@ const HigherOrLower = () => {
     if(guess === "higher" && newNumber > currentNumber){
             console.log("You guessed right");
             setResult("You guessed right");
+            onSetGameResult("You guessed right");
+            updateScores("Player");
     }
     else if(guess === "lower" && newNumber < currentNumber){
         console.log("You guessed right");
         setResult("You guessed right");
+        onSetGameResult("You guessed right");
+        updateScores("Player");
 
     }
     else {
-        console.log("You guessed wrong")
+        console.log("You guessed wrong");
         setResult("You guessed wrong");
+        onSetGameResult("You guessed wrong");
+        updateScores("Computer");
 
     }
     setCurrentNumber(newNumber);

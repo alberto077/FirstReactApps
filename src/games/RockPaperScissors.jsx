@@ -56,7 +56,7 @@ const Reset = ({reset}) => {
 
 
 
-const RockPaperScissors = () => {
+const RockPaperScissors = ({updateScores, onSetGameResult}) => {
   const [result, setResult] = useState(null);
   const[playerScore, setPlayerScore] = useState(0);
   const [computerScore, setComputerScore] = useState(0);
@@ -88,10 +88,13 @@ const RockPaperScissors = () => {
     ) {
     setPlayerScore(playerScore + 1);
     setWinner("Player");
+    updateScores("Player");
+
     return "You win!";
     }
     setComputerScore(computerScore + 1);
     setWinner("Computer");
+    updateScores("Computer");
    
     return "Computer wins!";
     };
@@ -101,6 +104,14 @@ const RockPaperScissors = () => {
         const gameResult = determineWinner (playerChoice.name, computerChoice)
         console.log(`Player chose: ${playerChoice.name}`);
         console.log(`Computer chose ${computerChoice}`);
+
+        onSetGameResult(
+        <div id="result">
+          <p>Player Chose: {playerChoice.name}</p>
+          <p>Computer Chose: {computerChoice}</p>
+          <p>Outcome: {gameResult}</p>
+        </div>)//`Player chose: ${playerChoice.name} 
+        //   Computer chose: ${computerChoice}`)
         setResult({
             player: `Player chose: ${playerChoice.name}`,
             computer: `Computer chose ${computerChoice}`,
@@ -127,15 +138,16 @@ const RockPaperScissors = () => {
         prompt= "May the odds be ever in your favor!"
       />
 
-      <Scoreboard winner = {winner}
+      {/* <Scoreboard winner = {winner}
         playerScore = {playerScore}
         computerScore = {computerScore}
-       />
+       /> */}
 
       <Choices 
         choices = {choices} onPlayerChoice = {handlePlayerChoice}
       />
-      <Result result = {result} />
+      <Result result = {result}/>
+
       <Reset reset = {resetGame}/>
 
 

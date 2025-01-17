@@ -1,39 +1,43 @@
 import { useState } from 'react'
 import './App.css'
-import  RockPaperScissors from "./games/RockPaperScissors"
-import HigherorLower from "./games/HigherorLower"
-
-const GameSelector = ({onGameSelect}) => {
-  return (
-    <div>
-      <h2>Select a Game</h2>
-      <button onClick = {() => onGameSelect("RockPaperScissors")}>Rock-Paper-Scissors</button>
-      <button onClick = {() => onGameSelect("Higher or Lower")}>Higher or Lower Guessing Game</button>
-    </div>
-  );
-}
+import  RockPaperScissors from "./games/RockPaperScissors";
+import HigherorLower from "./games/HigherorLower";
+import GameSelector from './components/Gameselector';
+import Scoreboard from './components/Scoreboard';
+import Results from './components/Results';
+import Hangman from './games/Hangman';
 
 const App = () => {
   const [selectedGame, setSelectedGame] = useState(null);
-  console.log(selectedGame);
-  const renderGame = () => {
-    switch(selectedGame){
-      case "RockPaperScissors":
-        return <RockPaperScissors />;
-      case "Higher or Lower":
-        return <HigherorLower />;
-      default:
-        return <p>Please select a game to start playing</p>;
-      
+  const[playerScore, setPlayerScore] = useState(0);
+  const [computerScore, setComputerScore] = useState(0);
+  const [gameResult, setGameResult] = useState(null);
 
+  const updateScores = (winner) => {
+    if (winner === "Player"){
+    setPlayerScore(playerScore + 1);
+    } else if (winner === "Computer") {
+    setComputerScore(computerScore + 1);
     }
   };
+      
+
+    
+  
   return (
     <div>
     <h1>My Mini Game Hub</h1>
+    <Scoreboard playerScore={playerScore}
+    computerScore={computerScore}/>
+    <Results result = {gameResult} />
     <hr />
     <GameSelector  onGameSelect = {setSelectedGame}/>
-    {renderGame()}
+    {selectedGame === "RockPaperScissors" && <RockPaperScissors updateScores = {updateScores} onSetGameResult = {setGameResult}/>}
+    {selectedGame === "HigherorLower" && <HigherorLower updateScores = {updateScores} onSetGameResult = {setGameResult}/>}
+    {selectedGame === "Hangman" && <Hangman />}
+
+
+    {!selectedGame && <p>Please select a game to start </p>}
     </div>
   );
 }
