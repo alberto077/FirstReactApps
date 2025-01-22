@@ -5,6 +5,8 @@ const GameSelector = ({onGameSelect}) => {
         <button onClick = {() => onGameSelect("RockPaperScissors")}>Rock Paper Scissors</button>
         <button onClick = {() => onGameSelect("HigherorLower")}>Higher or Lower Guessing Game</button>
         <button onClick = {() => onGameSelect("Hangman")}>Hangman</button>
+        <button onClick = {() => onGameSelect("TriviaGame")}>TriviaGame</button>
+
 
 
       </div>

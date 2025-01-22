@@ -6,7 +6,7 @@ import GameSelector from './components/Gameselector';
 import Scoreboard from './components/Scoreboard';
 import Results from './components/Results';
 import Hangman from './games/Hangman';
-
+import TriviaGame from './games/TriviaGame';
 const App = () => {
   const [selectedGame, setSelectedGame] = useState(null);
   const[playerScore, setPlayerScore] = useState(0);
@@ -34,7 +34,8 @@ const App = () => {
     <GameSelector  onGameSelect = {setSelectedGame}/>
     {selectedGame === "RockPaperScissors" && <RockPaperScissors updateScores = {updateScores} onSetGameResult = {setGameResult}/>}
     {selectedGame === "HigherorLower" && <HigherorLower updateScores = {updateScores} onSetGameResult = {setGameResult}/>}
-    {selectedGame === "Hangman" && <Hangman />}
+    {selectedGame === "Hangman" && <Hangman updateScores = {updateScores} onSetGameResult = {setGameResult} />}
+    {selectedGame === "TriviaGame" && <TriviaGame />} 
 
 
     {!selectedGame && <p>Please select a game to start </p>}
