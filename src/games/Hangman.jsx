@@ -264,19 +264,8 @@ const Hangman = ({updateScores, onSetGameResult}) => {
         console.log(guessedLetter);
         console.log(secretWord);
         console.log(guessedWord);        
-        // // if (wrongCount >=5){
-        // //     updateScores("Computer");
-        // //     onSetGameResult(`You Lost! The word was ${secretWord}`);
-        // //     return;
-        // }
-       
-        if (guessedWord.join('') === secretWord){
-            updateScores("Player");
-            onSetGameResult("Congratulations, You Won!");
-            return;
-        }
 
-        if (secretWord.includes(guessedLetter)) {
+        if (secretWord.includes(guessedLetter) && guessedWord.join('') != secretWord) {
             // Complete the code here:
             
            
@@ -298,11 +287,22 @@ const Hangman = ({updateScores, onSetGameResult}) => {
                             return char;
                         }
                     });
+                    if (update.join('') === secretWord){
+                        updateScores("Player");
+                        onSetGameResult(
+                            <div>
+                                <h2>Congratulations, You Won!</h2>
+                                <p>You had {5-wrongCount} guesses left</p>
+                            </div>
+                        );
+                    }
+                    
                     return update;
+                    
                 });
 
 
-        } else if(wrongCount < 5){
+        } else if(wrongCount < 5 && guessedWord.join('')!= secretWord){
             // To update the WrongCount we have to change the state by taking the currentWrongCount and updatig it with an arrow function since the state shouldnt be directly modified
             // Within this arrow function the idea is to declare a constant varible that will hold the newCount update and we return that back to set as the currentWrongCount
             // The newCount variable is set to equal the currentWrongCount incremented by one
@@ -315,7 +315,7 @@ const Hangman = ({updateScores, onSetGameResult}) => {
                 if(newCount >= 5){
                     console.log("You Lost");
                     updateScores("Computer");
-                    onSetGameResult(`You Lost! The word was ${secretWord}`);
+                    onSetGameResult(`Game Over! The word was ${secretWord}`);
                 }
                 return newCount;
             })
@@ -324,6 +324,8 @@ const Hangman = ({updateScores, onSetGameResult}) => {
             // - If the wrongCount reaches 5 or more, display a message indicating that the player has lost the game.
         }
     };
+
+    
 
     return(
         <div>
